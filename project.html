@@ -1,0 +1,112 @@
+<!-- Author: Paul Brackett Group 2, Group 3
+
+-->
+
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src='./validation.js'></script>
+<html lang="en">
+    <head>
+        <style>
+            #maindiv {
+                width: 50%;
+            }
+
+            .textinput {
+                width: 100%;
+                border-radius: 5px;
+                border: 1px solid #909090;
+            }
+
+            input:not(#register) {
+                padding: 13px;
+            }
+
+            label {
+                margin-top: 10px;
+                margin-bottom: 10px;
+                display:inline-block;
+            }
+
+            #register {
+                margin-top: 30px;
+            }
+            
+            #qualification {
+                width: 140px;
+            }
+
+            #header {
+                color: #a8302a;
+                text-align: center;
+                text-decoration: underline;
+                font-family: Arial;
+            }
+			.hide {
+				display: none;
+			}
+			.show {
+				display: block;
+			}
+			.error {
+				color: red;
+			}
+			.correct {
+				color: green;
+			}
+        </style>
+        <title>HW1</title>
+    </head>
+
+ 
+	
+    <body>
+        <div id="maindiv">
+            <h4 id="header">Registaration Form</h4>
+            <form method="post">
+                <label for="fname">First Name:</label><br>
+                <input type="text" id="fname" name="fname" class="textinput" placeholder="Enter your first name" ><br>
+				<div id="fnameValidated" > <label class="hide" id="fnameValidated" name="fnameValidated" ></label> </div>
+				
+                <label for="lname">Last Name:</label><br>
+                <input type="text" id="lname" name="lname" class="textinput" placeholder="Enter your last name" ><br>
+				<div id="lnameValidated" > <label class="hide" id="lnameValidated" name="lnameValidated" ></label> </div>
+
+                <label for="email">Email:</label><br>
+                <input type="text" id="email" name="email" class="textinput" placeholder="Enter your Email" ><br>
+				<div id="emailValidated" > <label class="hide" id="emailValidated" name="emailValidated" ></label> </div>
+
+                <label for="mobilenum">Mobile:</label><br>
+                <input type="number" id="mobilenum" name="mobilenum" class="textinput" placeholder="only 10 digits are allowed" min="1000000000" max="9999999999" ><br>
+
+                <label id="gender">Gender:</label><br>
+                <input type="radio" id="male" name="gender" value="Male">
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="Female">
+                <label for="female">female</label><br>
+
+                <label for="city">City:</label><br>
+                <input type="text" id="city" class="textinput" name="city"><br>
+
+                <label for="state">State:</label><br>
+                <input type="text" id="state" class="textinput" name="state"><br>
+
+                <label for="state">Qualification:</label><br>
+                <select  id="qualification" name="qualification" >
+                    <option value="none" selected disabled hidden >Select Qualification:</option>
+                    <option value="graduation">Graduation</option>
+                    <option value="btech">Btech.</option>
+                    <option value="mtech">Mtech.</option>
+                    <option value="mca">MCA</option>
+                    <option value="bca">BCA</option>
+                </select> <br>
+
+                <label>Password:</label><br>
+                <input type="password" id="password" class="textinput" name="password"><br>
+				<div id="passwordValidated" > <label class="hide" id="passwordValidated" name="passwordValidated" ></label> </div>
+
+                <input type="button" id="register" onclick="validate()" name="register" value="Register">
+            </form>
+        </div>
+    </body>
+</html>
