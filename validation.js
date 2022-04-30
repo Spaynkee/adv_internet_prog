@@ -1,38 +1,45 @@
-$(document).ready(function () {
-    //Not sure if anything needs to be here.
-});
-
-
 function validate() {
-    //add regex validations for each field that we care about.
-    // we can get elements by id and pull their data that way.
     fname = document.getElementById('fname').value;
     lname = document.getElementById('lname').value;
     email = document.getElementById('email').value;
+    mobilenum = document.getElementById('mobilenum').value.toString();
+    console.dir(mobilenum);
+    gender = document.querySelector('input[name="gender"]:checked').value
+    city = document.getElementById('city').value;
+    state = document.getElementById('state').value;
+    qualification = document.getElementById('qualification').value;
     password = document.getElementById('password').value;
 
     errors = 0
     errors += validate_fname(fname);
     errors += validate_lname(lname);
     errors += validate_email(email);
+    errors += validate_mobilenum(mobilenum)
+    errors += validate_gender(gender);
+    errors += validate_city(city);
+    errors += validate_state(state);
+    errors += validate_qualification(qualification);
     errors += validate_password(password);
 
     if (errors > 0) {
-        alert("ERRORS, FIX IT");
+        alert("Please check your inputs for errors and try again.")
         return;
     }
 
-    // do the php call here?
     $.post("validation.php", {
         fname: fname,
         lname: lname,
         email: email,
+        mobilenum: mobilenum,
+        gender: gender,
+        city: city,
+        state: state,
+        qualification: qualification,
         password: password
     },
     function(data) {
-        alert(data);
-        if (data === 'error') {
-            alert("Php threw an error!");
+        if (data.substring(0,5) === 'error') {
+            alert("Php threw an error: " + data);
         }
     });
 
@@ -73,9 +80,9 @@ function validate_lname(lname){
     }
 
 }
+
 function validate_email(email){
-    //fix this regex
-    const re = /^[a-zA-Z'.\-\s]{1,30}$/;
+    const re = /^[a-z0-9'\-_.]+@[a-z0-9]+(\.[a-z]+)+$/;
     passes_validation = RegExp(re).test(email);
     emailValidated = document.getElementById('emailValidated');
 
@@ -92,9 +99,84 @@ function validate_email(email){
 
 }
 
+function validate_mobilenum(mobilenum){
+    mobilenumValidated = document.getElementById('mobilenumValidated');
+
+    if (mobilenum !== "" && mobilenum.length < 20 ) {
+        mobilenumValidated.className = 'correct';
+        mobilenumValidated.innerHTML = "Correct";
+        return 0;
+    }
+    else {
+        mobilenumValidated.className = 'error';
+        mobilenumValidated.innerHTML = "Error";
+        return 1;
+    }
+
+}
+
+function validate_gender(gender){
+    genderValidated = document.getElementById('genderValidated');
+
+    if (gender !== "") {
+        genderValidated.className = 'correct';
+        genderValidated.innerHTML = "Correct";
+        return 0;
+    }
+    else {
+        genderValidated.className = 'error';
+        genderValidated.innerHTML = "Error";
+        return 1;
+    }
+}
+
+function validate_city(city){
+    cityValidated = document.getElementById('cityValidated');
+
+    if (city !== "") {
+        cityValidated.className = 'correct';
+        cityValidated.innerHTML = "Correct";
+        return 0;
+    }
+    else {
+        cityValidated.className = 'error';
+        cityValidated.innerHTML = "Error";
+        return 1;
+    }
+}
+
+function validate_state(state){
+    stateValidated = document.getElementById('stateValidated');
+
+    if (state !== "") {
+        stateValidated.className = 'correct';
+        stateValidated.innerHTML = "Correct";
+        return 0;
+    }
+    else {
+        stateValidated.className = 'error';
+        stateValidated.innerHTML = "Error";
+        return 1;
+    }
+}
+
+function validate_qualification(qualification){
+    qualificationValidated = document.getElementById('qualificationValidated');
+
+    if (qualification !== "none" && qualification !== "") {
+        qualificationValidated.className = 'correct';
+        qualificationValidated.innerHTML = "Correct";
+        return 0;
+    }
+    else {
+        qualificationValidated.className = 'error';
+        qualificationValidated.innerHTML = "Error";
+        return 1;
+    }
+}
+
 function validate_password(password){
-    //fix this regex.
-    const re = /^[a-zA-Z'.\-\s]{1,30}$/;
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{1,10}$/;
     passes_validation = RegExp(re).test(password);
     passwordValidated = document.getElementById('passwordValidated');
 

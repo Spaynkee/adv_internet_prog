@@ -78,20 +78,24 @@
 
                 <label for="mobilenum">Mobile:</label><br>
                 <input type="number" id="mobilenum" name="mobilenum" class="textinput" placeholder="only 10 digits are allowed" min="1000000000" max="9999999999" ><br>
+				<div id="mobilenumValidated" > <label class="hide" id="mobilenumValidated" name="mobilenumValidated" ></label> </div>
 
                 <label id="gender">Gender:</label><br>
                 <input type="radio" id="male" name="gender" value="Male">
                 <label for="male">Male</label>
                 <input type="radio" id="female" name="gender" value="Female">
                 <label for="female">female</label><br>
+				<div id="genderValidated" > <label class="hide" id="genderValidated" name="genderValidated" ></label> </div>
 
                 <label for="city">City:</label><br>
                 <input type="text" id="city" class="textinput" name="city"><br>
+				<div id="cityValidated" > <label class="hide" id="cityValidated" name="cityValidated" ></label> </div>
 
                 <label for="state">State:</label><br>
                 <input type="text" id="state" class="textinput" name="state"><br>
+				<div id="stateValidated" > <label class="hide" id="stateValidated" name="stateValidated" ></label> </div>
 
-                <label for="state">Qualification:</label><br>
+                <label for="qualification">Qualification:</label><br>
                 <select  id="qualification" name="qualification" >
                     <option value="none" selected disabled hidden >Select Qualification:</option>
                     <option value="graduation">Graduation</option>
@@ -100,6 +104,7 @@
                     <option value="mca">MCA</option>
                     <option value="bca">BCA</option>
                 </select> <br>
+				<div id="qualificationValidated" > <label class="hide" id="qualificationValidated" name="qualificationValidated" ></label> </div>
 
                 <label>Password:</label><br>
                 <input type="password" id="password" class="textinput" name="password"><br>
