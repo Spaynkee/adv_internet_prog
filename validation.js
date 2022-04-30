@@ -3,7 +3,6 @@ function validate() {
     lname = document.getElementById('lname').value;
     email = document.getElementById('email').value;
     mobilenum = document.getElementById('mobilenum').value.toString();
-    console.dir(mobilenum);
     gender = document.querySelector('input[name="gender"]:checked').value
     city = document.getElementById('city').value;
     state = document.getElementById('state').value;
