@@ -26,11 +26,12 @@
     .$_POST['qualification']."','"
     .$_POST['password']."')";
 
+
     if (mysqli_query($conn, $sql)) {
         echo "Row Inserted into DB";
     }
     else {
-        echo "Error inserting row to database";
+        echo "error inserting row to database";
     }
 
     mysqli_close($conn);
@@ -61,7 +62,7 @@
     }
 
     function validate_mobilenum($field) {
-        if ($field == "" || strlen($field) > 20 ) {
+        if ($field == "" || strlen($field) > 10 || strlen($field) < 9 ) {
             echo "error mobilenum ";
             die();
         }
@@ -96,7 +97,7 @@
     }
 
     function validate_password($field) {
-        $pattern = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{1,10}$/"; 
+        $pattern = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{3,10}$/"; 
         if (!preg_match($pattern, $field)) {
             echo "error password";
             die();

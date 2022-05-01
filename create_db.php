@@ -5,7 +5,7 @@ $conn = new mysqli('localhost', 'root', '');
 if (!$conn) {
     die ("Failed".mysqli_connect_error());
 }
-echo "DB Connected";
+echo "DB Connected<br />";
 
 $sql = "CREATE DATABASE project";
 
@@ -14,10 +14,10 @@ if (!$conn) {
 }
 
 if (mysqli_query($conn, $sql)) {
-    echo "Database Created";
+    echo "Database Created<br />";
 }
 else {
-    echo "Error creating database";
+    echo "Error creating database<br />";
 }
 
 mysqli_close($conn);
@@ -29,7 +29,7 @@ $create_table = "Create Table Registered (
     firstname VARCHAR(30) NOT NULL,
     lastname VARCHAR(30) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    mobilenum BIGINT(20) NOT NULL,
+    mobilenum BIGINT(10) NOT NULL,
     gender VARCHAR(6) NOT NULL,
     city VARCHAR(255) NOT NULL,
     state VARCHAR(255) NOT NULL,
@@ -39,10 +39,10 @@ $create_table = "Create Table Registered (
     )";
 
 if (mysqli_query($conn, $create_table)) {
-    echo "Table Created";
+    echo "Table Created<br />";
 }
 else {
-    echo "Error creating Table";
+    echo "Error creating Table<br />";
 }
 
 mysqli_close($conn);

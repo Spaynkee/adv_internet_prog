@@ -1,9 +1,21 @@
 function validate() {
+    mobilenum = 0;
+    gender = null;
+
     fname = document.getElementById('fname').value;
     lname = document.getElementById('lname').value;
     email = document.getElementById('email').value;
-    mobilenum = document.getElementById('mobilenum').value.toString();
-    gender = document.querySelector('input[name="gender"]:checked').value
+    mobilenum = document.getElementById('mobilenum').value
+
+    if (mobilenum ){
+        mobilenum = mobilenum.toString();
+    }
+
+    gender_input = document.querySelector('input[name="gender"]:checked')
+
+    if (gender_input) {
+        gender = gender_input.value
+    }
     city = document.getElementById('city').value;
     state = document.getElementById('state').value;
     qualification = document.getElementById('qualification').value;
@@ -39,6 +51,9 @@ function validate() {
     function(data) {
         if (data.substring(0,5) === 'error') {
             alert("Php threw an error: " + data);
+        }
+        else {
+            alert('Row stored successfully!');
         }
     });
 
@@ -101,7 +116,7 @@ function validate_email(email){
 function validate_mobilenum(mobilenum){
     mobilenumValidated = document.getElementById('mobilenumValidated');
 
-    if (mobilenum !== "" && mobilenum.length < 20 ) {
+    if (mobilenum !== "" && mobilenum.length >= 9 && mobilenum.length <= 10 ) {
         mobilenumValidated.className = 'correct';
         mobilenumValidated.innerHTML = "Correct";
         return 0;
@@ -117,7 +132,7 @@ function validate_mobilenum(mobilenum){
 function validate_gender(gender){
     genderValidated = document.getElementById('genderValidated');
 
-    if (gender !== "") {
+    if (gender !== "" && gender !== null) {
         genderValidated.className = 'correct';
         genderValidated.innerHTML = "Correct";
         return 0;
@@ -175,7 +190,7 @@ function validate_qualification(qualification){
 }
 
 function validate_password(password){
-    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{1,10}$/;
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{3,10}$/;
     passes_validation = RegExp(re).test(password);
     passwordValidated = document.getElementById('passwordValidated');
 

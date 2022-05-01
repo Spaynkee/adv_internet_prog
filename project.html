@@ -55,7 +55,7 @@
 				color: green;
 			}
         </style>
-        <title>HW1</title>
+        <title>Project</title>
     </head>
 
  
@@ -65,19 +65,19 @@
             <h4 id="header">Registaration Form</h4>
             <form method="post">
                 <label for="fname">First Name:</label><br>
-                <input type="text" id="fname" name="fname" class="textinput" placeholder="Enter your first name" ><br>
+                <input type="text" id="fname" name="fname" class="textinput" placeholder="Enter your first name" maxlength="30"><br>
 				<div id="fnameValidated" > <label class="hide" id="fnameValidated" name="fnameValidated" ></label> </div>
 				
                 <label for="lname">Last Name:</label><br>
-                <input type="text" id="lname" name="lname" class="textinput" placeholder="Enter your last name" ><br>
+                <input type="text" id="lname" name="lname" class="textinput" placeholder="Enter your last name" maxlength="30"><br>
 				<div id="lnameValidated" > <label class="hide" id="lnameValidated" name="lnameValidated" ></label> </div>
 
                 <label for="email">Email:</label><br>
-                <input type="text" id="email" name="email" class="textinput" placeholder="Enter your Email" ><br>
+                <input type="text" id="email" name="email" class="textinput" placeholder="Enter your Email" maxlength="255"><br>
 				<div id="emailValidated" > <label class="hide" id="emailValidated" name="emailValidated" ></label> </div>
 
                 <label for="mobilenum">Mobile:</label><br>
-                <input type="number" id="mobilenum" name="mobilenum" class="textinput" placeholder="only 10 digits are allowed" min="1000000000" max="9999999999" ><br>
+                <input type="number" id="mobilenum" name="mobilenum" class="textinput" placeholder="only 9 or 10 digits are allowed" min="100000000", max="9999999999"><br>
 				<div id="mobilenumValidated" > <label class="hide" id="mobilenumValidated" name="mobilenumValidated" ></label> </div>
 
                 <label id="gender">Gender:</label><br>
@@ -88,11 +88,11 @@
 				<div id="genderValidated" > <label class="hide" id="genderValidated" name="genderValidated" ></label> </div>
 
                 <label for="city">City:</label><br>
-                <input type="text" id="city" class="textinput" name="city"><br>
+                <input type="text" id="city" class="textinput" name="city" maxlength="255"><br>
 				<div id="cityValidated" > <label class="hide" id="cityValidated" name="cityValidated" ></label> </div>
 
                 <label for="state">State:</label><br>
-                <input type="text" id="state" class="textinput" name="state"><br>
+                <input type="text" id="state" class="textinput" name="state" maxlength="255"><br>
 				<div id="stateValidated" > <label class="hide" id="stateValidated" name="stateValidated" ></label> </div>
 
                 <label for="qualification">Qualification:</label><br>
@@ -107,7 +107,7 @@
 				<div id="qualificationValidated" > <label class="hide" id="qualificationValidated" name="qualificationValidated" ></label> </div>
 
                 <label>Password:</label><br>
-                <input type="password" id="password" class="textinput" name="password"><br>
+                <input type="password" id="password" class="textinput" name="password" maxlength="10"><br>
 				<div id="passwordValidated" > <label class="hide" id="passwordValidated" name="passwordValidated" ></label> </div>
 
                 <input type="button" id="register" onclick="validate()" name="register" value="Register">
