@@ -1,4 +1,5 @@
 <?php	
+    // If validation fails, these functions will return an error message and quit the php script.
     validate_fname($_POST['fname']);
     validate_lname($_POST['lname']);
     validate_email($_POST['email']);
@@ -15,6 +16,12 @@
         die ("Failed".mysqli_connect_error());
     }
 
+    // escape single-quote for fname lname email.
+    $_POST['fname'] = $conn -> real_escape_string($_POST['fname']);
+    $_POST['lname'] = $conn -> real_escape_string($_POST['lname']);
+    $_POST['email'] = $conn -> real_escape_string($_POST['email']);
+
+    // If we didn't exit due to a failed validation, we save the form info into a sql database.
     $sql = "INSERT INTO registered (firstname, lastname, email, mobilenum, gender, city, state, qualification, password) values ('"
     .$_POST['fname']."','"
     .$_POST['lname']."','"
@@ -25,7 +32,6 @@
     .$_POST['state']."','"
     .$_POST['qualification']."','"
     .$_POST['password']."')";
-
 
     if (mysqli_query($conn, $sql)) {
         echo "Row Inserted into DB";
@@ -39,8 +45,7 @@
     function validate_fname($field) {
         $pattern = "/^[a-zA-Z'.\-\s]{1,30}$/"; 
         if (!preg_match($pattern, $field)) {
-            echo "error fname";
-            die();
+            die("error fname");
         }
     }
 
@@ -48,59 +53,51 @@
         $pattern = "/^[a-zA-Z'.\-\s]{1,30}$/"; 
        
         if (!preg_match($pattern, $field)) {
-            echo "error lname";
-            die();
+            die("error lname");
         }
     }
 
     function validate_email($field) {
-        $pattern = "/^[a-z0-9'\-_.]+@[a-z0-9]+(\.[a-z]+)+$/"; 
+        $pattern = "/^[a-z0-9'\-_.]+@[a-z0-9]+(\.[a-z]+)*$/"; 
         if (!preg_match($pattern, $field)) {
-            echo "error email";
-            die();
+            die("error email");
         }
     }
 
     function validate_mobilenum($field) {
         if ($field == "" || strlen($field) > 10 || strlen($field) < 9 ) {
-            echo "error mobilenum ";
-            die();
+            die("error mobilenum ");
         }
     }
 
     function validate_gender($field) {
         if ($field != "Male" && $field != "Female") {
-            echo "error gender";
-            die();
+            die("error gender");
         }
     }
 
     function validate_city($field) {
         if ($field == "") {
-            echo "error city ";
-            die();
+            die("error city");
         }
     }
 
     function validate_state($field) {
         if ($field == "") {
-            echo "error state";
-            die();
+            die("error state");
         }
     }
 
     function validate_qualification($field) {
         if ($field == "none") {
-            echo "error qualification";
-            die();
+            die("error qualification");
         }
     }
 
     function validate_password($field) {
         $pattern = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{3,10}$/"; 
         if (!preg_match($pattern, $field)) {
-            echo "error password";
-            die();
+            die("error password");
         }
     }
 ?>

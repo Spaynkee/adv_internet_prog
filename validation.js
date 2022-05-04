@@ -1,27 +1,32 @@
+// The main validation function. This validates all fields and makes the ajax request if there are no errors.
 function validate() {
-    mobilenum = 0;
-    gender = null;
+    let mobilenum = 0;
+    let gender = null;
 
-    fname = document.getElementById('fname').value;
-    lname = document.getElementById('lname').value;
-    email = document.getElementById('email').value;
+    let fname = document.getElementById('fname').value;
+    let lname = document.getElementById('lname').value;
+    let email = document.getElementById('email').value;
     mobilenum = document.getElementById('mobilenum').value
-
-    if (mobilenum ){
+ 
+    // Convert mobilenum to string so we can validate string length easily.
+    if (mobilenum){
         mobilenum = mobilenum.toString();
     }
 
-    gender_input = document.querySelector('input[name="gender"]:checked')
+    let gender_input = document.querySelector('input[name="gender"]:checked')
 
+    // if a gender is selected, get that genders value.
     if (gender_input) {
         gender = gender_input.value
     }
-    city = document.getElementById('city').value;
-    state = document.getElementById('state').value;
-    qualification = document.getElementById('qualification').value;
-    password = document.getElementById('password').value;
 
-    errors = 0
+    let city = document.getElementById('city').value;
+    let state = document.getElementById('state').value;
+    let qualification = document.getElementById('qualification').value;
+    let password = document.getElementById('password').value;
+
+    // If any validation is not met, errors will be > 0.
+    let errors = 0
     errors += validate_fname(fname);
     errors += validate_lname(lname);
     errors += validate_email(email);
@@ -37,6 +42,7 @@ function validate() {
         return;
     }
 
+    // Ajax call to send the form information to the validation.php file.
     $.post("validation.php", {
         fname: fname,
         lname: lname,
@@ -48,7 +54,9 @@ function validate() {
         qualification: qualification,
         password: password
     },
+    //Callback function for determining success of validation.php.
     function(data) {
+        // Our php file always returns a message of the form "error x", so if we get this message back something went wrong.
         if (data.substring(0,5) === 'error') {
             alert("Php threw an error: " + data);
         }
@@ -59,150 +67,92 @@ function validate() {
 
 }
 
+// show_validation takes a fields validation div, and a bool denoting if the field passed validation
+function show_validation(validation_element, passes_validation) {
+    if (passes_validation) {
+        validation_element.className = 'correct';
+        validation_element.innerHTML = "Correct";
+        return 0;
+    }
+    else {
+        validation_element.className = 'error';
+        validation_element.innerHTML = "Error";
+        return 1;
+    }
+}
+
+// validates the fname field
 function validate_fname(fname){
     const re = /^[a-zA-Z'.\-\s]{1,30}$/;
-    passes_validation = RegExp(re).test(fname);
-    fnameValidated = document.getElementById('fnameValidated');
+    const passes_validation = RegExp(re).test(fname);
+    let fnameValidated = document.getElementById('fnameValidated');
 
-    if (passes_validation) {
-        fnameValidated.className = 'correct';
-        fnameValidated.innerHTML = "Correct";
-        return 0;
-    }
-    else {
-        fnameValidated.className = 'error';
-        fnameValidated.innerHTML = "Error";
-        return 1;
-    }
-
+    return show_validation(fnameValidated, passes_validation);
 }
 
+// validates the lname field
 function validate_lname(lname){
     const re = /^[a-zA-Z'.\-\s]{1,30}$/;
-    passes_validation = RegExp(re).test(lname);
-    lnameValidated = document.getElementById('lnameValidated');
+    const passes_validation = RegExp(re).test(lname);
+    let lnameValidated = document.getElementById('lnameValidated');
 
-    if (passes_validation) {
-        lnameValidated.className = 'correct';
-        lnameValidated.innerHTML = "Correct";
-        return 0;
-    }
-    else {
-        lnameValidated.className = 'error';
-        lnameValidated.innerHTML = "Error";
-        return 1;
-    }
-
+    return show_validation(lnameValidated, passes_validation);
 }
 
+// validates the email field.
 function validate_email(email){
-    const re = /^[a-z0-9'\-_.]+@[a-z0-9]+(\.[a-z]+)+$/;
-    passes_validation = RegExp(re).test(email);
-    emailValidated = document.getElementById('emailValidated');
+    const re = /^[a-z0-9'\-_.]+@[a-z0-9]+(\.[a-z]+)*$/;
+    const passes_validation = RegExp(re).test(email);
+    let emailValidated = document.getElementById('emailValidated');
 
-    if (passes_validation) {
-        emailValidated.className = 'correct';
-        emailValidated.innerHTML = "Correct";
-        return 0;
-    }
-    else {
-        emailValidated.className = 'error';
-        emailValidated.innerHTML = "Error";
-        return 1;
-    }
-
+    return show_validation(emailValidated, passes_validation);
 }
 
+// validates the mobilenum field
 function validate_mobilenum(mobilenum){
-    mobilenumValidated = document.getElementById('mobilenumValidated');
+    let mobilenumValidated = document.getElementById('mobilenumValidated');
+    const passes_validation = (mobilenum !== "" && mobilenum.length >= 9 && mobilenum.length <= 10 );
 
-    if (mobilenum !== "" && mobilenum.length >= 9 && mobilenum.length <= 10 ) {
-        mobilenumValidated.className = 'correct';
-        mobilenumValidated.innerHTML = "Correct";
-        return 0;
-    }
-    else {
-        mobilenumValidated.className = 'error';
-        mobilenumValidated.innerHTML = "Error";
-        return 1;
-    }
-
+    return show_validation(mobilenumValidated, passes_validation);
 }
 
+// validates the gender field
 function validate_gender(gender){
-    genderValidated = document.getElementById('genderValidated');
+    let genderValidated = document.getElementById('genderValidated');
+    const passes_validation = (gender !== "" && gender !== null)
 
-    if (gender !== "" && gender !== null) {
-        genderValidated.className = 'correct';
-        genderValidated.innerHTML = "Correct";
-        return 0;
-    }
-    else {
-        genderValidated.className = 'error';
-        genderValidated.innerHTML = "Error";
-        return 1;
-    }
+    return show_validation(genderValidated, passes_validation);
 }
 
+// validates the city field.
 function validate_city(city){
-    cityValidated = document.getElementById('cityValidated');
+    let cityValidated = document.getElementById('cityValidated');
+    const passes_validation = (city !== "")
 
-    if (city !== "") {
-        cityValidated.className = 'correct';
-        cityValidated.innerHTML = "Correct";
-        return 0;
-    }
-    else {
-        cityValidated.className = 'error';
-        cityValidated.innerHTML = "Error";
-        return 1;
-    }
+    return show_validation(cityValidated, passes_validation);
 }
 
+// validates the state field
 function validate_state(state){
-    stateValidated = document.getElementById('stateValidated');
+    let stateValidated = document.getElementById('stateValidated');
+    const passes_validation = (state !== "")
 
-    if (state !== "") {
-        stateValidated.className = 'correct';
-        stateValidated.innerHTML = "Correct";
-        return 0;
-    }
-    else {
-        stateValidated.className = 'error';
-        stateValidated.innerHTML = "Error";
-        return 1;
-    }
+    return show_validation(stateValidated, passes_validation);
 }
 
+// validates the qualification field
 function validate_qualification(qualification){
-    qualificationValidated = document.getElementById('qualificationValidated');
+    let qualificationValidated = document.getElementById('qualificationValidated');
+    const passes_validation = (qualification !== "none" && qualification !== "") 
 
-    if (qualification !== "none" && qualification !== "") {
-        qualificationValidated.className = 'correct';
-        qualificationValidated.innerHTML = "Correct";
-        return 0;
-    }
-    else {
-        qualificationValidated.className = 'error';
-        qualificationValidated.innerHTML = "Error";
-        return 1;
-    }
+    return show_validation(qualificationValidated, passes_validation);
 }
 
+// validates the password field
 function validate_password(password){
     const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{3,10}$/;
-    passes_validation = RegExp(re).test(password);
-    passwordValidated = document.getElementById('passwordValidated');
+    const passes_validation = RegExp(re).test(password);
+    let passwordValidated = document.getElementById('passwordValidated');
 
-    if (passes_validation) {
-        passwordValidated.className = 'correct';
-        passwordValidated.innerHTML = "Correct";
-        return 0;
-    }
-    else {
-        passwordValidated.className = 'error';
-        passwordValidated.innerHTML = "Error";
-        return 1;
-    }
-
+    return show_validation(passwordValidated, passes_validation);
 }
