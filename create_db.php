@@ -1,23 +1,25 @@
 <?php
 
-$conn = new mysqli('localhost', 'root', '');
+try {
+    $conn = new mysqli('localhost', 'root', '');
+}
+catch (Exception $e) {
+    die ("error ".$e);
+}
 
 if (!$conn) {
-    die ("Failed".mysqli_connect_error());
+    die ("error <br />".mysqli_connect_error());
 }
+
 echo "DB Connected<br />";
 
 $sql = "CREATE DATABASE project";
-
-if (!$conn) {
-    die ("Failed".mysqli_connect_error());
-}
 
 if (mysqli_query($conn, $sql)) {
     echo "Database Created<br />";
 }
 else {
-    echo "Error creating database<br />";
+    echo "error creating database<br />";
 }
 
 mysqli_close($conn);
@@ -42,7 +44,7 @@ if (mysqli_query($conn, $create_table)) {
     echo "Table Created<br />";
 }
 else {
-    echo "Error creating Table<br />";
+    echo "error creating Table<br />";
 }
 
 mysqli_close($conn);

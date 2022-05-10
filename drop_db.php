@@ -1,9 +1,15 @@
 <?php
-$conn = new mysqli('localhost', 'root', '');
+try {
+    $conn = new mysqli('localhost', 'root', '', 'project');
+}
+catch (Exception $e) {
+    die ("error ".$e);
+}
 
 if (!$conn) {
-    die ("Failed".mysqli_connect_error());
+    die ("error <br />".mysqli_connect_error());
 }
+
 echo "DB Connected <br />";
 
 $sql = "DROP DATABASE project";

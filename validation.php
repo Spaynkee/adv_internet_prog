@@ -10,10 +10,15 @@
     validate_qualification($_POST['qualification']);
     validate_password($_POST['password']);
 
-    $conn = new mysqli('localhost', 'root', '', 'project');
+    try {
+        $conn = new mysqli('localhost', 'root', '', 'project');
+    }
+    catch (Exception $e) {
+        die ("error ".$e);
+    }
 
     if (!$conn) {
-        die ("Failed".mysqli_connect_error());
+        die ("error ".mysqli_connect_error());
     }
 
     // escape single-quote for fname lname email.
